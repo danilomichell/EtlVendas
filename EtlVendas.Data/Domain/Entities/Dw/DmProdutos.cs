@@ -1,15 +1,19 @@
-﻿namespace EtlVendas.Data.Domain.Entities.Dw;
+﻿using System;
+using System.Collections.Generic;
 
-public class DmProdutos
+namespace EtlVendas.Data.Domain.Entities.Dw
 {
-    public DmProdutos()
+    public partial class DmProdutos
     {
-        FtVendas = new HashSet<FtVendas>();
+        public DmProdutos()
+        {
+            FtVendas = new HashSet<FtVendas>();
+        }
+
+        public int IdProd { get; set; }
+        public string DscProd { get; set; } = null!;
+        public string ClasseProd { get; set; } = null!;
+
+        public virtual ICollection<FtVendas> FtVendas { get; set; }
     }
-
-    public int IdProd { get; set; }
-    public string DscProd { get; set; } = null!;
-    public string ClasseProd { get; set; } = null!;
-
-    public virtual ICollection<FtVendas> FtVendas { get; set; }
 }

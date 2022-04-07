@@ -1,10 +1,19 @@
-﻿namespace EtlVendas.Data.Domain.Entities.Dw;
+﻿using System;
+using System.Collections.Generic;
 
-public class DmFornecedores
+namespace EtlVendas.Data.Domain.Entities.Dw
 {
-    public int IdForn { get; set; }
-    public string NomForn { get; set; } = null!;
-    public string RegiaoForn { get; set; } = null!;
+    public partial class DmFornecedores
+    {
+        public DmFornecedores()
+        {
+            FtVendas = new HashSet<FtVendas>();
+        }
 
-    public virtual FtVendas FtVendas { get; set; } = null!;
+        public int IdForn { get; set; }
+        public string NomForn { get; set; } = null!;
+        public string RegiaoForn { get; set; } = null!;
+
+        public virtual ICollection<FtVendas> FtVendas { get; set; }
+    }
 }

@@ -16,6 +16,7 @@ public class Load
         CarregarDmProdutos(transform.DmProdutos, context);
         CarregarDmTiposVendas(transform.DmTiposVendas, context);
         CarregaFtVendas(transform.FtVendas, context);
+        CarregaFtImpontualidade(transform.FtImpontualidade, context);
     }
 
     public void CarregarDmTempo(List<DmTempo> tempos, VendasDwContext context)
@@ -154,6 +155,7 @@ public class Load
 
     public void CarregaFtVendas(List<FtVendas> ftVendas, VendasDwContext context)
     {
+        Console.WriteLine("Iniciando cargda das vendas");
         var sw = new Stopwatch();
         sw.Start();
         var valores = context.FtVendas.ToList();
@@ -165,7 +167,27 @@ public class Load
         context.FtVendas.AddRange(ftVendas);
         context.SaveChanges();
         sw.Stop();
-        Console.WriteLine("Finalizando carga das locações" +
+        Console.WriteLine("Finalizando carga das vendas" +
+                          $" - Tempo de carga: {sw.Elapsed.TotalSeconds} segundos.");
+    }
+
+    public void CarregaFtImpontualidade(List<FtImpontualidade> ftImpontualidade, VendasDwContext context)
+    {
+        Console.WriteLine("Iniciando cargda das impontualidades");
+        var sw = new Stopwatch();
+        sw.Start();
+        var valores = context.FtVendas.ToList();
+        if (valores.Count != 0)
+        {
+            context.RemoveRange(valores);
+            context.SaveChanges();
+        }
+
+        var tt = ftImpontualidade.Distinct().ToList();
+        context.FtImpontualidade.AddRange(ftImpontualidade.Distinct().ToList());
+        context.SaveChanges();
+        sw.Stop();
+        Console.WriteLine("Finalizando carga das impontualidades" +
                           $" - Tempo de carga: {sw.Elapsed.TotalSeconds} segundos.");
     }
 }

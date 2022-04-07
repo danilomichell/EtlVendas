@@ -24,11 +24,11 @@ let tabelas =
 
 let caminho_appsettings = "EtlVendas.Processamento/appsettings.json"
 let projeto_do_contexto = "EtlVendas.Data"
-let nome_do_contexto = "VendasContext"
+let nome_do_contexto = "VendasDwContext"
 let diretorio_do_contexto = "Context"
-let diretorio_das_entidades = "..\EtlVendas.Data\Domain\Entities\Relacional"
+let diretorio_das_entidades = "..\EtlVendas.Data\Domain\Entities\Dw"
 let projeto_das_entidades = "EtlVendas.Data"
-let caminho_string_conexao = "$.ConnectionStrings.VendasContext" 
+let caminho_string_conexao = "$.ConnectionStrings.VendasDwContext" 
 let driver_banco_de_dados = "Oracle.EntityFrameworkCore"
 
 // Comandos do terminal

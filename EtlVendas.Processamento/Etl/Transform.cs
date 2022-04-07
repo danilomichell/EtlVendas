@@ -16,7 +16,7 @@ public class Transform
         TransformarProdutos(extracao.Produtos);
         TransformarTiposVendas(extracao.Pedidos);
         TransformarFtVendas(extracao.Pedidos);
-        //TransformarFtLocacoes(extracao.Locacoes);
+        TransformarFtInadimplencia(extracao.Pedidos);
     }
 
     public List<DmTempo> DmTempo { get; } = new();
@@ -26,6 +26,7 @@ public class Transform
     public List<DmProdutos> DmProdutos { get; } = new();
     public List<DmTiposVendas> DmTiposVendas { get; } = new();
     public List<FtVendas> FtVendas { get; } = new();
+    public List<FtImpontualidade> FtImpontualidade { get; } = new();
 
     private void TransformarTempo(List<DateTime> tempo)
     {
@@ -141,6 +142,27 @@ public class Transform
                     IdForn = item.CodProdNavigation.CodForn,
                     IdTempo = Convert.ToInt16(pedido.DatPed.Year.ToString()[2..] + pedido.DatPed.Month),
                     ValorVenda = pedido.ItensDePedido.Sum(x => x.PrecoPro)
+                });
+
+        sw.Stop();
+
+        Console.WriteLine("Finalizando transformação das vendas" +
+                          $" - Tempo de transformação: {sw.Elapsed.TotalSeconds} segundos.");
+    }
+
+    private void TransformarFtInadimplencia(List<Pedidos> pedidos)
+    {
+        Console.WriteLine("Iniciando transformação das vendas");
+        var sw = new Stopwatch();
+        sw.Start();
+        foreach (var pedido in pedidos)
+            foreach (var item in pedido.Parcelas.Where(x => x.ParcPaga.Equals("F")))
+                FtImpontualidade.Add(new FtImpontualidade()
+                {
+                    IdTempo = Convert.ToInt16(pedido.DatPed.Year.ToString()[2..] + pedido.DatPed.Month),
+                    ValorParcAtrasadas = item.ValParc,
+                    IdCliente = pedido.CodCli,
+                    ValorParcTotal = item.ValParc
                 });
 
         sw.Stop();

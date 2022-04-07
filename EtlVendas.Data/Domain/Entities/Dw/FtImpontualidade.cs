@@ -1,12 +1,16 @@
-﻿namespace EtlVendas.Data.Domain.Entities.Dw;
+﻿using System;
+using System.Collections.Generic;
 
-public class FtImpontualidade
+namespace EtlVendas.Data.Domain.Entities.Dw
 {
-    public int IdTempo { get; set; }
-    public int IdCliente { get; set; }
-    public decimal ValorParcAtrasadas { get; set; }
-    public decimal ValorParcTotal { get; set; }
+    public partial class FtImpontualidade
+    {
+        public short IdTempo { get; set; }
+        public int IdCliente { get; set; }
+        public decimal ValorParcAtrasadas { get; set; }
+        public decimal ValorParcTotal { get; set; }
 
-    public virtual DmClientes IdClienteNavigation { get; set; } = null!;
-    public virtual DmTempo IdTempoNavigation { get; set; } = null!;
+        public virtual DmClientes IdClienteNavigation { get; set; } = null!;
+        public virtual DmTempo IdTempoNavigation { get; set; } = null!;
+    }
 }

@@ -1,16 +1,20 @@
-﻿namespace EtlVendas.Data.Domain.Entities.Dw;
+﻿using System;
+using System.Collections.Generic;
 
-public class DmClientes
+namespace EtlVendas.Data.Domain.Entities.Dw
 {
-    public DmClientes()
+    public partial class DmClientes
     {
-        FtImpontualidade = new HashSet<FtImpontualidade>();
+        public DmClientes()
+        {
+            FtImpontualidade = new HashSet<FtImpontualidade>();
+        }
+
+        public int IdCliente { get; set; }
+        public string NomeCliente { get; set; } = null!;
+        public string CidadeCli { get; set; } = null!;
+        public string UfCli { get; set; } = null!;
+
+        public virtual ICollection<FtImpontualidade> FtImpontualidade { get; set; }
     }
-
-    public int IdCliente { get; set; }
-    public string NomeCliente { get; set; } = null!;
-    public string CidadeCli { get; set; } = null!;
-    public string UfCli { get; set; } = null!;
-
-    public virtual ICollection<FtImpontualidade> FtImpontualidade { get; set; }
 }
